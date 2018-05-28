@@ -1,11 +1,17 @@
 import React from 'react'
 
+import classes from './Post.css'
+import fontawesome from '@fortawesome/fontawesome'
+import facancel from '@fortawesome/fontawesome-free-solid/faTimes' 
+
+fontawesome.library.add(facancel)
+
 const post = (props) => {
     return (
-        <div>
-            <p  onClick={props.click}>Title: {props.title}</p> 
-            <p>Body: {props.body}</p>
-            <input text="text"  onChange={props.change} value={props.title} />
+        <div className={classes.Post} >
+            <h2>{props.title}</h2> 
+            <p>{props.body}</p>
+            <span onClick={props.click} className={classes.Delete}><i className="fas fa-times"></i> Delete</span>
         </div>
     )
 }
