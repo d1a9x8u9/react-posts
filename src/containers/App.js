@@ -1,47 +1,39 @@
 import React, { Component } from 'react';
 
 import classes from './App.css';
-import Layout from '../components/Layout/Layout'
-import Post from '../components/Posts/Post/Post'
 import Posts from '../components/Posts/Posts'
+import axios from '../axios-post'
 
 class App extends Component {
   state = {
         showCreate: false,
         showPosts: true,
         showEdit: false,
-        posts: [
-            {title: 'How to React.js', body: 'Nigga Im faded', id: 1},
-            {title: 'CRA vs Next.js', body: 'Nigga nigga Im faded', id: 2 },
-            {title: 'Why??', body: 'Nigga nigga Im faded', id: 3 }
-        ],
+        posts: [],
         create: {
             title: '',
             body: '',
         }
     }
 
+componentDidMount = () => {
+    let posts = [...this.state.posts]
+    axios.get('/posts.json')
+    .then( res => {
+        for ( const [key,value] of Object.entries(res.data)) {
+            let post = {id: key}
+            for( const [k,v] of Object.entries(value)) post[k] = v
+            posts.push(post)
+        }
+        this.setState({posts: posts})
+    })
+    .catch(err => console.log(err))
+}
+
 showPostsHandler = () => {
     const showPosts = this.state.showPosts
     this.setState({showPosts: !showPosts})
 }
-
-// onChangeHandler = (event, id) => {
-//     const postIndex = this.state.posts.findIndex( post => {
-//         return post.id === id
-//     })
-
-//     const post = {
-//         ...this.state.posts[postIndex]
-//     }
-
-//     post.title = event.target.value
-
-//     const posts = [...this.state.posts]
-//     posts[postIndex] = post
-
-//     this.setState( {posts: posts} )
-// }
 
 onDeletePostHandler = (pIndex) => {
     const posts = [...this.state.posts]
@@ -55,15 +47,12 @@ createPostsHandler = () => {
 }
 
 submitHandler = (event) => {
-    let post = {}
-    post.title = this.state.create.title
-    post.body = this.state.create.body
-    let posts = [...this.state.posts]
-
-    posts.push(post)
+    
+    axios.post('/posts.json', this.state.create)
+        .then( res => console.log(res) )
+        .catch( err => console.log(err))
 
     this.setState({
-        posts: posts,
         showCreate: false,
         showPosts: true
     })
@@ -79,15 +68,14 @@ onChangeInputHandler = (event) => {
 onChangeTextAreaHandler = (event) => {
     let post = {...this.state.create}
     post.body = event.target.value
-    console.log(post)
     this.setState({create: post})
 }
 
 render() {
-
+    // Show all posts?
     let posts = null
 
-    if(this.state.showPosts) {
+    if(this.state.showPosts && this.state.posts) {
         posts = <Posts 
                 posts={this.state.posts}
                 clicked={this.onDeletePostHandler}
@@ -95,6 +83,7 @@ render() {
             />
     }
     
+    // Show Create Posts?
     let createPosts = null
 
     if(this.state.showCreate) {
@@ -108,10 +97,17 @@ render() {
             </form>
         )
     }
-    return (
-        <div className={classes.App}>
+
+    let controls = (
+        <div>
             <button onClick={this.showPostsHandler}>All posts</button>
             <button onClick={this.createPostsHandler}>Create a Post</button>
+        </div>
+    )
+
+    return (
+        <div className={classes.App}>
+            {controls}
             {createPosts}
             {posts}
         </div>
