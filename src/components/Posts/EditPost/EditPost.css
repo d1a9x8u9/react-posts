@@ -1,15 +1,10 @@
-.Layout {
+.EditPost {
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-  }
-  
-  form {
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+form {
     display: flex;
     flex-flow: column nowrap;
     align-content: center;
@@ -22,11 +17,4 @@
     box-shadow: 3px 3px 1px #888888;
     box-sizing: border-box;
   }
-  
-  textarea {
-    width: 80%;
-    height: 200px;
-  }
-  
-  
   
