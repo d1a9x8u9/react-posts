@@ -4,13 +4,13 @@ import Post from './Post/Post'
 
 class Posts extends Component {
     render() {
-        return this.props.posts.map( (post, index) => {
+        return this.props.posts.map( post => {
             return <Post 
                 title={post.title} 
                 body={post.body} 
-                click={() => this.props.clicked(index)} 
-                change={(event) => this.props.changed(event, post.id)}
-                key={post.id}/>
+                click={() => this.props.clicked(post.id)} 
+                key={post.id}
+                id={post.id}/>
         })
     }
 }
