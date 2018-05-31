@@ -45,16 +45,22 @@
 }
 
 .Body {
-    padding: 3vh;
+    padding: 1vh 3vh 3vh;
     font-size: 2.5vh;    
     font-family: 'Roboto', sans-serif;
+    text-align: left;
 }
 
 .Timestamp {
-    padding: 0;
-    margin: 0;
+    padding: 0 auto auto;
+    margin: auto;
     text-align: left;
     font-size: 1.3vh;
     color: black;
     font-family: 'Oswald', sans-serif;
+}
+
+.Link {
+    text-decoration: none;
+    color: white;
 }

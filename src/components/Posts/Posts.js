@@ -10,9 +10,10 @@ class Posts extends Component {
                 title={post.title} 
                 body={post.body} 
                 author={post.author}
-                click={() => this.props.clicked(post.id)} 
+                id={post.id}
+                delete={() => this.props.deleted(post.id)} 
                 key={post.id}
-                id={post.id}/>
+            />
         })
     }
 }

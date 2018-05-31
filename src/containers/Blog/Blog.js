@@ -32,11 +32,11 @@ class Blog extends Component {
                 if (!dbPosts)
                     return
                 for (const [key, value] of Object.entries(dbPosts)) {
-                    let post = {}                   
+                    let post = { id: key }                   
                     for (const [k, v] of Object.entries(value)) post[k] = v                    
-                    post.id = key
                     posts.push(post)
                 }
+                posts.reverse()         
                 this.setState({
                     posts: posts,
                 })
@@ -69,8 +69,8 @@ class Blog extends Component {
             return
 
         const today = new Date();
-        const date = `${today.getMonth()}-${today.getDate()}-${today.getFullYear()}`
-        console.log(date)
+        const date = `${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`
+
         const newPostKey = db.ref().child('posts').push().key
         db.ref('/posts/' + newPostKey).set({
             ...this.state.create,
@@ -85,7 +85,7 @@ class Blog extends Component {
                     timestamp: date
                 }
                 let posts = this.state.posts
-                posts.push(post)
+                posts.unshift(post)
                 this.setState({
                     posts: posts,
                     showCreate: false,
@@ -110,18 +110,16 @@ class Blog extends Component {
     }
 
     render() {
-        // Show all posts
         let posts = null
 
         if (this.state.posts.length) {
             posts = 
                 <Posts 
                     posts={this.state.posts}
-                    clicked={this.onDeletePostHandler}
+                    deleted={this.onDeletePostHandler}
                 />
         }
 
-        // Show Create Posts?
         let createPosts = null
 
         if (this.state.showCreate) {
@@ -142,7 +140,7 @@ class Blog extends Component {
             blog = ( 
                 <div>
                     <div className={classes.Blog}>
-                        <button name="showCreate" onClick={this.createPostsHandler}>Create a Post</button> 
+                        <div onClick={this.createPostsHandler} style={{cursor: 'pointer'}}><i className="fas fa-plus fa-1x"></i> Create a Post</div> 
                         {createPosts}
                         {posts} 
                     </div>
@@ -151,7 +149,7 @@ class Blog extends Component {
         else 
             blog = (
                 <div className={classes.Blog}>
-                    <p>You must be logged in to submit a post.</p>
+                    <p>Login to contribute.</p>
                     {posts}
                 </div>
             )

@@ -2,27 +2,34 @@ import React, { Component } from 'react'
 
 import { Redirect } from 'react-router-dom'
 import classes from './EditPost.css'
-import firebase from '../../../firebase'
+import firebase, { auth } from '../../../firebase'
 
 const db = firebase.database()
 
 class EditPost extends Component {
     state = {
         post: '',
-        done: false
+        done: false,
+        user: null,
     }
 
     componentWillMount = () => {
-        this.getPostDataHandler()
-    }
-
-    getPostDataHandler = () => {
-        db.ref(`posts/${this.props.match.params.id}`).once('value')
+        auth.onAuthStateChanged( user => {
+            db.ref(`posts/${this.props.match.params.id}`).once('value')
             .then(snapshot => {
-                this.setState({ post: snapshot.val() })
+                const post = snapshot.val()
+                let done = null
+                if(user) 
+                    done = user.displayName !== post.author ? true : false      // Validate user
+                this.setState({
+                    post: post,
+                    done: done,
+                    user: user
+                })
             })
+        })
     }
-
+    
     onChangeHandler = (event) => {
         this.setState({
             post: {
@@ -33,16 +40,23 @@ class EditPost extends Component {
     }
 
     onSubmitClickHandler = () => {
-        if(!this.state.post.title.trim() || !this.state.post.body.trim()) 
+        const formIsFilled = !this.state.post.title.trim() || !this.state.post.body.trim() 
+        const userIsAuthor = this.state.user.displayName === this.state.post.author
+        if(formIsFilled || !userIsAuthor) 
             return
         db.ref(`posts/${this.props.match.params.id}`).update(this.state.post)
         this.setState({ done: true })
     }
 
     render() {
-        let editPost = `Loading ${this.props.match.params.id} data...`
+        if (this.state.done) {
+            return <Redirect to='/' />
+        }
 
-        if (this.props.match.params.id && this.state.post) {
+        const postId = this.props.match.params.id
+        let editPost = `Loading ${postId} data...`
+
+        if (postId && this.state.post) {
             editPost = (
                 <form onSubmit={this.onSubmitClickHandler}>
                     <label>Title:</label>
@@ -53,11 +67,7 @@ class EditPost extends Component {
                 </form>
             )
         }
-
-        if (this.state.done) {
-            return <Redirect to='/' />
-        }
-
+        
         return (
             <div className={classes.EditPost}>
                 {editPost}

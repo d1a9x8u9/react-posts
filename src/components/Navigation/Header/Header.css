@@ -33,6 +33,11 @@
     color: rgb(59, 119, 199);
 }
 
+.Title small {
+    font-size: 4vh;
+    padding: 0 0 0 2vh;
+}
+
 .User {
     padding: .5vh 0 0;
 }

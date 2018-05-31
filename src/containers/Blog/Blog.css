@@ -9,6 +9,18 @@
     width: 100%;
     margin: 5vh auto;
   }
+
+#createbutton {
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 3px 5px;
+    font-size: 2vh;
+    cursor: pointer;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
   
   form {
     display: flex;
@@ -27,6 +39,7 @@
   textarea {
     width: 80%;
     height: 200px;
+    white-space: pre-wrap;
   }
   
   
