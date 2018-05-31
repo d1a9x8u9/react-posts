@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
+
 .Post {
     border: black 1px solid;
     width: 50%;
@@ -5,7 +7,7 @@
     text-align: center;
     word-wrap: normal;
     margin: 10px 5px;
-    padding: 10px;
+    padding: 10px 15px;
     box-shadow: 3px 3px 1px #888888;
 }
 
@@ -15,4 +17,44 @@
     background-color: #743131;
     padding: 2px 5px;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.Edit {
+    border: grey 1px solid;
+    color: white;
+    background-color: #47911d;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.Title {
+    font-size: 5vh;
+    text-align: left;
+    margin: auto;
+    padding: auto;
+    font-family: 'Oswald', sans-serif;
+}
+
+.Title small {
+    font-size: 1.5vh;
+    color: silver;
+    padding: 0 0 0 .5vh;
+}
+
+.Body {
+    padding: 3vh;
+    font-size: 2.5vh;    
+    font-family: 'Roboto', sans-serif;
+}
+
+.Timestamp {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 1.3vh;
+    color: black;
+    font-family: 'Oswald', sans-serif;
 }

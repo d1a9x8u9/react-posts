@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import firebase from 'firebase'
 import { Redirect } from 'react-router-dom'
 import classes from './EditPost.css'
+import firebase from '../../../firebase'
 
 const db = firebase.database()
 
@@ -18,50 +18,43 @@ class EditPost extends Component {
 
     getPostDataHandler = () => {
         db.ref(`posts/${this.props.match.params.id}`).once('value')
-            .then( snapshot => {
-            this.setState({post: snapshot.val()})
-        })
+            .then(snapshot => {
+                this.setState({ post: snapshot.val() })
+            })
     }
 
-    onTitleChangeHandler = (event) => {
+    onChangeHandler = (event) => {
         this.setState({
             post: {
                 ...this.state.post,
-                title: event.target.value
+                [event.target.name]: event.target.value
             }
         })
-    }
-
-    onTextAreaChangeHandler = (event) => {
-        this.setState({
-            post: {
-                ...this.state.post,
-                body: event.target.value
-            }
-        })    
     }
 
     onSubmitClickHandler = () => {
+        if(!this.state.post.title.trim() || !this.state.post.body.trim()) 
+            return
         db.ref(`posts/${this.props.match.params.id}`).update(this.state.post)
-        this.setState({done: true})
+        this.setState({ done: true })
     }
-    
-    render () {
+
+    render() {
         let editPost = `Loading ${this.props.match.params.id} data...`
 
-        if(this.props.match.params.id && this.state.post) {
+        if (this.props.match.params.id && this.state.post) {
             editPost = (
                 <form onSubmit={this.onSubmitClickHandler}>
                     <label>Title:</label>
-                    <input type="text" onChange={this.onTitleChangeHandler} value={this.state.post.title} />
+                    <input type="text" name="title" onChange={this.onChangeHandler} value={this.state.post.title} />
                     <label>Body:</label>
-                    <textarea type="text" onChange={this.onTextAreaChangeHandler} value={this.state.post.body} />
+                    <textarea type="text" name="body" onChange={this.onChangeHandler} value={this.state.post.body} />
                     <button type="submit" value="Submit">Submit</button>
                 </form>
             )
         }
 
-        if(this.state.done) {
+        if (this.state.done) {
             return <Redirect to='/' />
         }
 

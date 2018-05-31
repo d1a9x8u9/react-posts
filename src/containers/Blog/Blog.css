@@ -1,4 +1,4 @@
-.Layout {
+.Blog {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -7,6 +7,7 @@
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+    margin: 5vh auto;
   }
   
   form {

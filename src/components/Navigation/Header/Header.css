@@ -1,0 +1,38 @@
+.Header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    box-sizing: border-box;
+    padding: 2vh 5vh;
+    background-color: whitesmoke;
+    height: auto;
+}
+
+.Header a {
+    text-decoration: none;
+    color: black;
+}
+
+.Header a:hover {
+    color: rgb(87, 87, 87);
+}
+
+.Title {
+    font-size: 12vh;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    border-bottom: 1px solid black;
+}
+
+.Title a {
+    text-decoration: none;
+    color: rgb(44, 86, 141);
+}
+
+.Title a:hover {
+    color: rgb(59, 119, 199);
+}
+
+.User {
+    padding: .5vh 0 0;
+}
