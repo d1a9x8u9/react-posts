@@ -1,0 +1,14 @@
+.WsToolbar {
+    background-color:inherit;
+    color: black;
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.5vh;
+    display: flex;
+    box-sizing: border-box;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    padding: 0 20vh;
+    margin: 0;
+}

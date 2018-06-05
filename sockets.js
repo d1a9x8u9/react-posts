@@ -5,7 +5,10 @@ module.exports = (server) => {
 
     io.on('connection', socket => {
         console.log(`[sockets.js] user conn`)
+        
         users +=1
+        const today = new Date();
+        socket.emit('client-recieved-time', today.toTimeString())
 
         socket.on('request-time', () => {
             const subscribe = setInterval(() => {

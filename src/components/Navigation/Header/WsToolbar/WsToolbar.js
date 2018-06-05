@@ -1,9 +1,10 @@
 import React from 'react'
 
 import Time from './WsToolbarItems/Time/Time'
+import classes from './WsToolbar.css'
 
 const wsToolbar = (props) => (
-    <div>
+    <div className={classes.WsToolbar}>
         <Time />
     </div>
 )

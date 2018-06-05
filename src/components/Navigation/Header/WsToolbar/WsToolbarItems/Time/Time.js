@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+
 import io from 'socket.io-client'
+import classes from './Time.css'
 
 const socket = io()
 
@@ -24,7 +26,7 @@ class Time extends Component {
 
     render() {
         return(
-            <div>
+            <div className={classes.Time}>
                 <div>{this.state.time}</div>
             </div>
         )
