@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
 
-const socket = io('http://localhost:8000')
+const socket = io()
 
 class Time extends Component {
     constructor(props) {
@@ -15,7 +15,6 @@ class Time extends Component {
     }
 
     componentWillMount = () => {
-        console.log('mounted time.js')
         socket.emit('request-time', null);    
     }
 
