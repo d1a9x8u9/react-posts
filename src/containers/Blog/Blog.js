@@ -10,19 +10,14 @@ class Blog extends Component {
     state = {
         showCreate: false,
         posts: [],
-        create: {
-            title: '',
-            body: '',
-            author: '',
-        },
-        user: null
+        create: {},
+        user: null,
+        errorMessage: null
     }
 
     componentDidMount = () => {
-        auth.onAuthStateChanged( user => {
-            this.setState({
-                user
-            })
+        auth.onIdTokenChanged( user => {
+            this.setState({user: user})
         })
 
         let posts = [...this.state.posts]
@@ -65,38 +60,39 @@ class Blog extends Component {
     }
 
     submitHandler = (event) => {
-        if (!this.state.create.title.trim() || !this.state.create.body.trim()) 
-            return
+        if (!this.state.create.title.trim() || !this.state.create.body.trim()) {
+            this.setState({errorMessage: "Please fill out all required fields."})
+        }
+        else {
+            const today = new Date();
+            const date = `${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`
 
-        const today = new Date();
-        const date = `${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`
-
-        const newPostKey = db.ref().child('posts').push().key
-        db.ref('/posts/' + newPostKey).set({
-            ...this.state.create,
-            author: this.state.user.displayName,
-            timestamp: date
-        })
-            .then(() => {
-                let post = {
-                    ...this.state.create,
-                    id: newPostKey,
-                    author: this.state.user.displayName,
-                    timestamp: date
-                }
-                let posts = this.state.posts
-                posts.unshift(post)
-                this.setState({
-                    posts: posts,
-                    showCreate: false,
-                    create: {
-                        title: '',
-                        body: '',
-                        author: ''
-                    }
-                })
+            const newPostKey = db.ref().child('posts').push().key
+            db.ref('/posts/' + newPostKey).set({
+                ...this.state.create,
+                author: this.state.user.displayName,
+                timestamp: date,
+                uid: this.state.user.uid
             })
-            .catch(err => console.log(err))
+                .then(() => {
+                    let post = {
+                        ...this.state.create,
+                        id: newPostKey,
+                        author: this.state.user.displayName,
+                        timestamp: date,
+                        uid: this.state.user.uid
+                    }
+                    let posts = this.state.posts
+                    posts.unshift(post)
+                    this.setState({
+                        posts: posts,
+                        showCreate: false,
+                        create: {},
+                        errorMessage: null
+                    })
+                })
+                .catch(err => console.log(err))
+        }
         event.preventDefault()
     }
 
@@ -109,22 +105,33 @@ class Blog extends Component {
         })
     }
 
+    updatedPost = (editedPost) => {
+         let posts = this.state.posts.map( post => {
+            if(post.id === editedPost.id) {
+                return editedPost
+            }
+            return post
+        })
+        this.setState({posts: posts})
+    }
+
     render() {
         let posts = null
 
         if (this.state.posts.length) {
-            posts = 
-                <Posts 
-                    posts={this.state.posts}
-                    deleted={this.onDeletePostHandler}
-                />
+            posts = <Posts 
+                        posts={this.state.posts}
+                        deleted={this.onDeletePostHandler}
+                        updatedPost = {this.updatedPost}
+                    />
         }
 
         let createPosts = null
 
         if (this.state.showCreate) {
             createPosts = (
-                <form onSubmit={this.submitHandler}>
+                <form className={classes.CreateForm} onSubmit={this.submitHandler}>
+                    <div>{this.state.errorMessage}</div>
                     <label>Title:</label> 
                     <input type="text" name="title" onChange={this.onChangeHandler} /> 
                     <label>Body:</label> 
@@ -134,29 +141,27 @@ class Blog extends Component {
             )
         }
 
-        let blog = null
 
-        if(this.state.user)
-            blog = ( 
-                <div>
-                    <div className={classes.Blog}>
-                        <div onClick={this.createPostsHandler} style={{cursor: 'pointer'}}><i className="fas fa-plus fa-1x"></i> Create a Post</div> 
-                        {createPosts}
-                        {posts} 
-                    </div>
-                </div>
-            )
-        else 
-            blog = (
-                <div className={classes.Blog}>
-                    <p>Login to contribute.</p>
-                    {posts}
-                </div>
-            )
+        let createPostControl = this.state.user ? (
+            <div className={classes.CreatePostControl}>
+                <div onClick={this.createPostsHandler} style={{cursor: 'pointer'}}><i className="fas fa-plus fa-1x"></i> Create a Post</div> 
+                {createPosts}
+            </div>
+        ) : "Log in to contribute"
+
+
+        let blogView = null
+
+        blogView = (
+            <div className={classes.Blog}>
+                {createPostControl}
+                {posts}
+            </div>
+        )
             
         return ( 
             <div>
-                {blog}
+                {blogView}
             </div>
             )
         }

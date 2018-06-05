@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import Layout from './hoc/Layout/Layout'
-import EditPost from './components/Posts/EditPost/EditPost'
 import { Route, Switch } from 'react-router-dom'
 import Blog from './containers/Blog/Blog'
+import notFoundImg from './assets/images/404.png'
 
 class App extends Component {
     render() {
@@ -11,8 +11,8 @@ class App extends Component {
             <div>
                 <Layout>
                     <Switch>
-                        <Route path="/edit/:id" component={EditPost} />
                         <Route path="/" exact component={Blog} />
+                        <Route render={() => <img src={notFoundImg} alt="404" />} />
                     </Switch>
                 </Layout>
             </div>

@@ -6,12 +6,9 @@ class Posts extends Component {
     render() {
         return this.props.posts.map( post => {
             return <Post 
-                timestamp={post.timestamp}
-                title={post.title} 
-                body={post.body} 
-                author={post.author}
-                id={post.id}
+                {...post}
                 delete={() => this.props.deleted(post.id)} 
+                updatePost= {this.props.updatedPost}
                 key={post.id}
             />
         })

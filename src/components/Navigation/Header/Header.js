@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import classes from './Header.css'
 import User from '../../User/User'
-
+import WsToolbar from './WsToolbar/WsToolbar'
 
 
 class Header extends Component {
@@ -15,7 +15,8 @@ class Header extends Component {
                         <User />
                     </div>
                 </div>
-                <div className={classes.Title}><a href="/">Bloggist</a><small>A simple React.js blog</small></div>
+                <div className={classes.Title}><a href="/">Bloggist</a><small>A reactjs blog</small></div>
+                <WsToolbar />
             </div>
         )
     }

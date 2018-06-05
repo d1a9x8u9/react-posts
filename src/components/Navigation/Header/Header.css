@@ -18,10 +18,9 @@
 }
 
 .Title {
-    font-size: 12vh;
+    font-size: 10vh;
     text-align: center;
     font-family: 'Oswald', sans-serif;
-    border-bottom: 1px solid black;
 }
 
 .Title a {

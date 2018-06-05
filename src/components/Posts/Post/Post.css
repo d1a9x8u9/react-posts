@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
-
 .Post {
     border: black 1px solid;
-    width: 50%;
+    width: 70%;
     height: auto;
     text-align: center;
     word-wrap: normal;
@@ -31,7 +29,7 @@
 }
 
 .Title {
-    font-size: 5vh;
+    font-size: 4vh;
     text-align: left;
     margin: auto;
     padding: auto;
@@ -46,7 +44,7 @@
 
 .Body {
     padding: 1vh 3vh 3vh;
-    font-size: 2.5vh;    
+    font-size: 2vh;    
     font-family: 'Roboto', sans-serif;
     text-align: left;
 }
@@ -63,4 +61,21 @@
 .Link {
     text-decoration: none;
     color: white;
+}
+
+.EditBody {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    resize: none;
+}
+
+.EditTitle {
+    width: 50%;    
+    font-size: 2.5vh;
+    font-family: 'Oswald', sans-serif;
+}
+
+.ErrorMessage {
+    color: red;
+    padding: auto;
 }

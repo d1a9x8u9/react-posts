@@ -1,46 +1,43 @@
 .Blog {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    margin: 5vh auto;
-  }
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  margin: 5vh auto;
+}
 
-#createbutton {
-    border: 1px black solid;
-    border-radius: 5px;
-    padding: 3px 5px;
-    font-size: 2vh;
-    cursor: pointer;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  form {
-    display: flex;
-    flex-flow: column nowrap;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 5px;
-    margin: 10px;
-    border: 1px black solid;
-    width: 80%;
-    box-shadow: 3px 3px 1px #888888;
-    box-sizing: border-box;
-  }
-  
-  textarea {
-    width: 80%;
-    height: 200px;
-    white-space: pre-wrap;
-  }
-  
-  
-  
+.CreateForm {
+  margin: 10px 5px;
+  padding: 10px 15px;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px black solid;
+  box-shadow: 3px 3px 1px #888888;
+  box-sizing: border-box;
+  font-size: 2vh;
+}
+
+form div {
+  color: red;
+}
+
+textarea {
+  width: 80%;
+  height: 200px;
+  white-space: pre-wrap;
+}
+
+.CreatePostControl {
+  font-size: 2vh;
+  width: 50%;
+  text-align: center;
+}
+
