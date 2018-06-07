@@ -14,7 +14,7 @@ class Blog extends Component {
         user: null,
         errorMessage: null
     }
-
+    
     componentDidMount = () => {
         auth.onIdTokenChanged( user => {
             this.setState({user: user})

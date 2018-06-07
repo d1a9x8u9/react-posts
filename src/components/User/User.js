@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 import classes from './User.css'
-import { auth, provider } from '../../firebase'
+import firebase, { auth, provider } from '../../firebase'
+
+auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 class User extends Component {
     state = {

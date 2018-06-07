@@ -2,7 +2,6 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 
-
 const config = {
     apiKey: "AIzaSyBA8VepbZusr68oUNVOOZ3k9L3ZOj7H7-k",
     authDomain: "react-posts-cf3c3.firebaseapp.com",
