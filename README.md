@@ -1,1 +1,1 @@
-﻿### Click [here](www.danielxu.work) for the latest live version of this project
+﻿### Click [here](https://www.danielxu.work/) for the latest live version of this project
