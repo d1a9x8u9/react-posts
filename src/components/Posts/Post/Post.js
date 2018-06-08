@@ -26,7 +26,6 @@ class Post extends Component {
             this.setState({user: user})
             })
         })
-        console.log(this.state.post.body)
     }
 
     componentWillUnmount = () => {
