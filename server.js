@@ -7,8 +7,8 @@ const
 const app = express()
 
 const options = {
-    key: fs.readFileSync('/etc/ssl/private/apache-selfsigned.key'),
-    cert: fs.readFileSync('/etc/ssl/certs/apache-selfsigned.crt')
+    key: fs.readFileSync('/etc/letsencrypt/live/danielxu.work/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/danielxu.work/fullchain.pem')
 }
 
 app.use(express.static(path.join(__dirname, 'build')))
